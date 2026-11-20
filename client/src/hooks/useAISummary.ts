@@ -7,26 +7,26 @@ export function useFetchAISummary() {
 
   return useMutation({
     mutationFn: (request: AISummaryRequest) => adoApi.generateAISummary(request.tab, request.data, request.context),
-    onSuccess: (data: AISummaryResponse) => {
-      queryClient.setQueryData(['aiSummary'], data.summary);
+    onSuccess: (data: AISummaryResponse, variables: AISummaryRequest) => {
+      queryClient.setQueryData(['aiSummary', variables.tab], data.summary);
     },
   });
 }
 
-export function useAISummary(): string | null {
+export function useAISummary(tab: string): string | null {
   const queryClient = useQueryClient();
-  return (queryClient.getQueryData(['aiSummary']) as string | null) ?? null;
+  return (queryClient.getQueryData(['aiSummary', tab]) as string | null) ?? null;
 }
 
-export function useAISummaryError(): string | null {
+export function useAISummaryError(tab: string): string | null {
   const queryClient = useQueryClient();
-  return (queryClient.getQueryData(['aiSummaryError']) as string | null) ?? null;
+  return (queryClient.getQueryData(['aiSummaryError', tab]) as string | null) ?? null;
 }
 
-export function useClearAISummary() {
+export function useClearAISummary(tab: string) {
   const queryClient = useQueryClient();
   return () => {
-    queryClient.setQueryData(['aiSummary'], null);
-    queryClient.setQueryData(['aiSummaryError'], null);
+    queryClient.setQueryData(['aiSummary', tab], null);
+    queryClient.setQueryData(['aiSummaryError', tab], null);
   };
 }

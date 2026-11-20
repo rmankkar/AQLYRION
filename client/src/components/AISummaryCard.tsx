@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { formatMarkdown } from '../utils/formatters.js';
 import { useFetchAISummary, useAISummary, useAISummaryError, useClearAISummary } from '../hooks/useAISummary.js';
 
@@ -8,14 +8,23 @@ interface AISummaryCardProps {
   context?: string;
 }
 
+const storageKey = (tab: string) => `ai_summary_${tab}`;
+
 export function AISummaryCard({ tab, data, context }: AISummaryCardProps) {
   const [isOpen, setIsOpen] = useState(true);
   const fetchAISummaryMutation = useFetchAISummary();
-  const summary = useAISummary();
-  const error = useAISummaryError();
-  const clearAISummary = useClearAISummary();
+  const summary = useAISummary(tab);
+  const error = useAISummaryError(tab);
+  const clearAISummary = useClearAISummary(tab);
 
   const isGenerating = fetchAISummaryMutation.isPending;
+
+  // Persist summary to localStorage whenever it changes (survives page refresh)
+  useEffect(() => {
+    if (summary) {
+      localStorage.setItem(storageKey(tab), summary);
+    }
+  }, [summary, tab]);
 
   const handleGenerate = () => {
     fetchAISummaryMutation.mutate({ tab, data, context });
@@ -23,7 +32,12 @@ export function AISummaryCard({ tab, data, context }: AISummaryCardProps) {
 
   const handleDismiss = () => {
     clearAISummary();
+    localStorage.removeItem(storageKey(tab));
   };
+
+  // Prefer cache summary, fall back to localStorage (persisted across refreshes)
+  const displaySummary = summary ?? localStorage.getItem(storageKey(tab)) ?? null;
+  const displayError = error;
 
   return (
     <div className="mb-6 rounded-xl border border-indigo-100 bg-gradient-to-br from-indigo-50 to-purple-50 shadow-sm overflow-hidden">
@@ -62,12 +76,12 @@ export function AISummaryCard({ tab, data, context }: AISummaryCardProps) {
             )}
           </button>
 
-          {error && (
+          {displayError && (
             <div className="rounded-lg border border-red-200 bg-red-50 p-3">
               <div className="flex items-start gap-2">
                 <span className="text-red-600">⚠️</span>
                 <div>
-                  <p className="text-sm font-medium text-red-800">{error}</p>
+                  <p className="text-sm font-medium text-red-800">{displayError}</p>
                   <button
                     onClick={handleDismiss}
                     className="mt-1 text-xs font-medium text-red-600 underline underline-offset-2 hover:text-red-800"
@@ -79,7 +93,7 @@ export function AISummaryCard({ tab, data, context }: AISummaryCardProps) {
             </div>
           )}
 
-          {summary && (
+          {displaySummary && (
             <div className="rounded-lg border border-indigo-100 bg-white p-4 shadow-inner">
               <div className="flex items-start gap-2 mb-2">
                 <span className="text-indigo-600">📋</span>
@@ -87,12 +101,12 @@ export function AISummaryCard({ tab, data, context }: AISummaryCardProps) {
               </div>
               <p
                 className="text-sm text-indigo-900/90 leading-relaxed"
-                dangerouslySetInnerHTML={{ __html: formatMarkdown(summary) }}
+                dangerouslySetInnerHTML={{ __html: formatMarkdown(displaySummary) }}
               />
             </div>
           )}
 
-          {!summary && !error && !isGenerating && (
+          {!displaySummary && !displayError && !isGenerating && (
             <div className="rounded-lg border border-indigo-100 bg-indigo-50/50 p-4 text-center">
               <p className="text-xs text-indigo-500 italic">
                 Click "Generate AI Summary" to get AI-powered analysis of this report view.
