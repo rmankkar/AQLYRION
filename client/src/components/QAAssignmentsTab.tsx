@@ -6,6 +6,7 @@ import { StatusPieChart } from './StatusPieChart.js';
 import { LoadingOverlay } from './LoadingSpinner.js';
 import type { SortField, SortDirection, StatusCount } from '../types/ado.js';
 import { AISummaryCard } from './AISummaryCard.js';
+import { ShareButton } from './ShareButton.js';
 
 export function QAAssignmentsTab() {
   const [selectedIterationPath, setSelectedIterationPath] = useState('');
@@ -211,6 +212,23 @@ export function QAAssignmentsTab() {
               )}
             </button>
           </div>
+
+          {userStories.length > 0 && (
+            <div className="flex justify-end mt-3">
+              <ShareButton
+                tab="qaassignments"
+                title="QA Assignments Report"
+                data={{
+                  userStories,
+                  totalQaUserStories,
+                  totalChildBugs,
+                  totalStoryPoints,
+                  boardColumnCounts,
+                  assignedToCounts,
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
 

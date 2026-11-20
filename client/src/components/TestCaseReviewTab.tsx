@@ -4,6 +4,7 @@ import { useFetchTestCases, useTestCases, useTestCaseErrors, useClearTestCases }
 import { TestCaseTable } from './TestCaseTable.js';
 import { StatusPieChart } from './StatusPieChart.js';
 import { AISummaryCard } from './AISummaryCard.js';
+import { ShareButton } from './ShareButton.js';
 import { LoadingOverlay } from './LoadingSpinner.js';
 import type { SortField, SortDirection, StatusCount } from '../types/ado.js';
 
@@ -179,6 +180,23 @@ export function TestCaseReviewTab() {
               )}
             </button>
           </div>
+
+          {testCases.length > 0 && (
+            <div className="flex justify-end mt-3">
+              <ShareButton
+                tab="testcases"
+                title="Test Case Review Report"
+                data={{
+                  testCases,
+                  totalTestCases,
+                  testCaseStatusCounts,
+                  testCaseComplexityCounts,
+                  testCaseAssignedToCounts,
+                  uniqueUserStoryCount,
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
 

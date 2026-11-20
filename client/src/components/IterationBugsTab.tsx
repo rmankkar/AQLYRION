@@ -6,6 +6,7 @@ import { StatusPieChart } from './StatusPieChart.js';
 import { LoadingOverlay } from './LoadingSpinner.js';
 import type { SortField, SortDirection, StatusCount } from '../types/ado.js';
 import { AISummaryCard } from './AISummaryCard.js';
+import { ShareButton } from './ShareButton.js';
 
 export function IterationBugsTab() {
   const [selectedIterationPath, setSelectedIterationPath] = useState('');
@@ -165,6 +166,23 @@ export function IterationBugsTab() {
               )}
             </button>
           </div>
+
+          {bugs.length > 0 && (
+            <div className="flex justify-end mt-3">
+              <ShareButton
+                tab="bugs"
+                title="Iteration Bugs Report"
+                data={{
+                  bugs,
+                  totalOpenBugs,
+                  bugStatusCounts,
+                  bugSeverityCounts,
+                  bugAssignedToCounts,
+                  uniqueUserStoryCount,
+                }}
+              />
+            </div>
+          )}
         </div>
       </div>
 

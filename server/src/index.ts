@@ -15,6 +15,8 @@ import qaAssignmentsRouter from './routes/qaAssignments.js';
 import commentsRouter from './routes/comments.js';
 import releaseFeaturesRouter from './routes/releaseFeatures.js';
 import aiSummaryRouter from './routes/aiSummary.js';
+import sharesRouter from './routes/shares.js';
+import { cleanupExpiredShares } from './services/shareService.js';
 
 validateEnv();
 
@@ -57,12 +59,22 @@ app.use('/api/qa-assignments', qaAssignmentsRouter);
 app.use('/api/comments', commentsRouter);
 app.use('/api/release-features', releaseFeaturesRouter);
 app.use('/api/ai-summary', aiSummaryRouter);
+app.use('/api/shares', sharesRouter);
 
 // 404 handler
 app.use(notFoundHandler);
 
 // Error handler
 app.use(errorHandler);
+
+// Startup: clean up expired share snapshots
+void cleanupExpiredShares().then(removed => {
+  if (removed > 0) {
+    console.log(`Cleaned up ${removed} expired share snapshot(s)`);
+  }
+}).catch(() => {
+  // Don't block server startup on cleanup failure
+});
 
 // Start server
 app.listen(env.port, () => {

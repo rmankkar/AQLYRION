@@ -26,6 +26,8 @@ interface EnvConfig {
   nvidiaNimBaseUrl: string;
   aiSummaryModel: string;
   aiSummaryEnabled: boolean;
+  shareBaseUrl: string;
+  shareRetentionDays: number;
 }
 
 function getRequiredEnv(key: string): string {
@@ -61,6 +63,8 @@ export const env: EnvConfig = {
   nvidiaNimBaseUrl: getOptionalEnv('NVIDIA_NIM_BASE_URL', 'https://integrate.api.nvidia.com/v1'),
   aiSummaryModel: getOptionalEnv('AI_SUMMARY_MODEL', 'nvidia/nemotron-3-ultra-550b-a55b'),
   aiSummaryEnabled: !!(process.env.NVIDIA_NIM_API_KEY),
+  shareBaseUrl: getOptionalEnv('SHARE_BASE_URL', 'http://localhost:5173'),
+  shareRetentionDays: parseInt(getOptionalEnv('SHARE_RETENTION_DAYS', '7'), 10),
 };
 
 export function validateEnv(): void {

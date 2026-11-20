@@ -30,5 +30,8 @@ coverage/
 # Vite
 client/dist/
 
+# Share snapshots
+server/data/shares/
+
 # TypeScript cache
 *.tsbuildinfo

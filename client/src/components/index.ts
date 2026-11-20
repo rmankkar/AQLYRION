@@ -9,3 +9,5 @@ export { LoadingSpinner, LoadingOverlay } from './LoadingSpinner.js';
 export { ErrorAlert, InfoAlert } from './ErrorAlert.js';
 export { StatusPieChart } from './StatusPieChart.js';
 export { Tabs } from './Tabs.js';
+export { ShareButton } from './ShareButton.js';
+export { SharedReportView } from './SharedReportView.js';

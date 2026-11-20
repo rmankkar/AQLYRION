@@ -1,4 +1,4 @@
-import { useState, useCallback, useMemo } from 'react';
+import { useState, useCallback, useMemo, useEffect } from 'react';
 import { useFetchFeatures, useFeatures, useFetchErrors } from './hooks/useFeatures.js';
 import { useFetchChildStories, useChildStories, useChildStoryErrors, useClearChildStories } from './hooks/useChildStories.js';
 import { useFetchReleaseFeatures, useClearReleaseFeatures, useFetchReleases, useReleases } from './hooks/useReleaseFeatures.js';
@@ -12,11 +12,14 @@ import { TestCaseReviewTab } from './components/TestCaseReviewTab.js';
 import { QAAssignmentsTab } from './components/QAAssignmentsTab.js';
 import { Tabs } from './components/Tabs.js';
 import { LoadingOverlay } from './components/LoadingSpinner.js';
+import { ShareButton } from './components/ShareButton.js';
+import { SharedReportView } from './components/SharedReportView.js';
 import type { SortField, SortDirection, ReleaseWithFeatures, ChildUserStory } from './types/ado.js';
 
 function App() {
   const [activeTab, setActiveTab] = useState<'features' | 'bugs' | 'testcases' | 'qaassignments'>('features');
   const [view, setView] = useState<'tables' | 'report'>('tables');
+  const [sharedView, setSharedView] = useState<{ shareId: string } | null>(null);
   const [selectedFeatureIds, setSelectedFeatureIds] = useState<Set<number>>(new Set());
   const [sortState, setSortState] = useState<{ field: SortField; direction: SortDirection }>({ field: 'id', direction: 'asc' });
   const [childSortState, setChildSortState] = useState<{ field: SortField; direction: SortDirection }>({ field: 'id', direction: 'asc' });
@@ -41,6 +44,14 @@ function App() {
   const isFetchingChildStories = fetchChildStoriesMutation.isPending;
   const isFetchingReleaseFeatures = fetchReleaseFeaturesMutation.isPending;
   const isLoadingReleases = fetchReleasesMutation.isPending;
+
+  // Detect shared report link from URL (e.g. /shared/abc123) on mount
+  useEffect(() => {
+    const match = window.location.pathname.match(/^\/shared\/([a-zA-Z0-9-]+)$/);
+    if (match) {
+      setSharedView({ shareId: match[1] });
+    }
+  }, []);
 
   const handleFetchFeatures = useCallback((ids: number[]) => {
     setView('tables');
@@ -247,18 +258,28 @@ function App() {
 
   return (
     <div className="min-h-screen bg-neutral-50">
-      <Header />
+      {!sharedView && (
+        <>
+          <Header />
 
-      {/* Tabs */}
-      <Tabs tabs={[
-        { id: 'features', label: 'Features & User Stories' },
-        { id: 'bugs', label: 'Iteration Bugs' },
-        { id: 'testcases', label: 'Test Case Review' },
-        { id: 'qaassignments', label: 'QA Assignments' },
-      ]} activeTab={activeTab} onChange={(tabId) => setActiveTab(tabId as 'features' | 'bugs' | 'testcases' | 'qaassignments')} />
+          {/* Tabs */}
+          <Tabs tabs={[
+            { id: 'features', label: 'Features & User Stories' },
+            { id: 'bugs', label: 'Iteration Bugs' },
+            { id: 'testcases', label: 'Test Case Review' },
+            { id: 'qaassignments', label: 'QA Assignments' },
+          ]} activeTab={activeTab} onChange={(tabId) => setActiveTab(tabId as 'features' | 'bugs' | 'testcases' | 'qaassignments')} />
+        </>
+      )}
 
       <main className="max-w-8xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-        {allErrors.length > 0 && activeTab === 'features' && (
+        {sharedView ? (
+          <div className="text-center py-20">
+            <SharedReportView shareId={sharedView.shareId} onClose={() => setSharedView(null)} />
+          </div>
+        ) : (
+          <>
+            {allErrors.length > 0 && activeTab === 'features' && (
           <div className="mb-6" role="alert">
             <div className="bg-red-50 border border-red-200 rounded-lg p-4">
               <h4 className="text-sm font-semibold text-red-800 mb-2">Errors</h4>
@@ -300,6 +321,14 @@ function App() {
                   selectedReleaseIds={selectedReleaseIds}
                   onReleaseSelectionChange={handleReleaseSelectionChange}
                 />
+
+                <div className="flex justify-end mb-4">
+                  <ShareButton
+                    tab="features"
+                    title="Features & User Stories Report"
+                    data={{ features: combinedFeatures, totalFeatures: combinedFeatures.length }}
+                  />
+                </div>
 
                 {/* Insights Section for Child User Stories - moved above Feature Table */}
                 {totalChildStories > 0 && (
@@ -424,6 +453,8 @@ function App() {
         ) : (
           <QAAssignmentsTab />
         )}
+      </>
+    )}
       </main>
 
       {(isFetchingFeatures || isFetchingChildStories || isFetchingReleaseFeatures || isLoadingReleases) && activeTab === 'features' && (
