@@ -1,5 +1,12 @@
 import dotenv from 'dotenv';
-dotenv.config();
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+
+// Load root .env (canonical config), then server/.env for server-specific overrides
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+dotenv.config({ path: path.resolve(__dirname, '../.env'), override: true });
 
 interface EnvConfig {
   adoOrgUrl: string;
@@ -15,6 +22,10 @@ interface EnvConfig {
   nodeEnv: string;
   corsOrigin: string;
   qaTeamEmails: string[];
+  nvidiaNimApiKey: string | undefined;
+  nvidiaNimBaseUrl: string;
+  aiSummaryModel: string;
+  aiSummaryEnabled: boolean;
 }
 
 function getRequiredEnv(key: string): string {
@@ -46,6 +57,10 @@ export const env: EnvConfig = {
     .split(',')
     .map(e => e.trim().toLowerCase())
     .filter(e => e.length > 0),
+  nvidiaNimApiKey: process.env.NVIDIA_NIM_API_KEY,
+  nvidiaNimBaseUrl: getOptionalEnv('NVIDIA_NIM_BASE_URL', 'https://integrate.api.nvidia.com/v1'),
+  aiSummaryModel: getOptionalEnv('AI_SUMMARY_MODEL', 'nvidia/nemotron-3-ultra-550b-a55b'),
+  aiSummaryEnabled: !!(process.env.NVIDIA_NIM_API_KEY),
 };
 
 export function validateEnv(): void {

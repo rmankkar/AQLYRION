@@ -14,6 +14,7 @@ import testCasesRouter from './routes/testCases.js';
 import qaAssignmentsRouter from './routes/qaAssignments.js';
 import commentsRouter from './routes/comments.js';
 import releaseFeaturesRouter from './routes/releaseFeatures.js';
+import aiSummaryRouter from './routes/aiSummary.js';
 
 validateEnv();
 
@@ -55,6 +56,7 @@ app.use('/api/test-cases', testCasesRouter);
 app.use('/api/qa-assignments', qaAssignmentsRouter);
 app.use('/api/comments', commentsRouter);
 app.use('/api/release-features', releaseFeaturesRouter);
+app.use('/api/ai-summary', aiSummaryRouter);
 
 // 404 handler
 app.use(notFoundHandler);

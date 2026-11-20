@@ -11,6 +11,7 @@ import type {
   FetchCommentsResponse,
   FetchReleaseFeaturesResponse,
   FetchReleasesResponse,
+  AISummaryResponse,
 } from '../types/ado.js';
 
 const API_BASE = '/api';
@@ -99,6 +100,13 @@ export const adoApi = {
     return fetchJson<FetchReleaseFeaturesResponse>(`${API_BASE}/release-features/from-release`, {
       method: 'POST',
       body: JSON.stringify({ releaseIds }),
+    });
+  },
+
+  async generateAISummary(tab: string, data: Record<string, unknown>, context?: string): Promise<AISummaryResponse> {
+    return fetchJson<AISummaryResponse>(`${API_BASE}/ai-summary`, {
+      method: 'POST',
+      body: JSON.stringify({ tab, data, context }),
     });
   },
 };

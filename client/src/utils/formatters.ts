@@ -139,3 +139,30 @@ export function stripHtml(html: string | null): string {
   // Normalize whitespace
   return text.replace(/\s+/g, ' ').trim();
 }
+
+/**
+ * Render basic Markdown formatting as safe HTML.
+ * Handles **bold**, *italic*, and line breaks. Escapes all HTML to prevent XSS.
+ */
+export function formatMarkdown(text: string | null | undefined): string {
+  if (!text) return '';
+
+  // Escape HTML to prevent XSS
+  let html = text
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+
+  // Convert **bold** to <strong>
+  html = html.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+
+  // Convert *italic* to <em>
+  html = html.replace(/\*(.*?)\*/g, '<em>$1</em>');
+
+  // Convert newlines to <br>
+  html = html.replace(/\n/g, '<br>');
+
+  return html;
+}

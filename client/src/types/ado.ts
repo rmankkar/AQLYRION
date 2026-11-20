@@ -194,3 +194,13 @@ export interface FetchReleasesResponse {
   releases: ReleaseItem[];
   errors: FetchError[];
 }
+
+export interface AISummaryRequest {
+  tab: string;
+  data: Record<string, unknown>;
+  context?: string;
+}
+
+export interface AISummaryResponse {
+  summary: string;
+}

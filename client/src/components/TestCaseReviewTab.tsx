@@ -3,6 +3,7 @@ import { useFetchIterations, useIterations, useIterationErrors } from '../hooks/
 import { useFetchTestCases, useTestCases, useTestCaseErrors, useClearTestCases } from '../hooks/useTestCases.js';
 import { TestCaseTable } from './TestCaseTable.js';
 import { StatusPieChart } from './StatusPieChart.js';
+import { AISummaryCard } from './AISummaryCard.js';
 import { LoadingOverlay } from './LoadingSpinner.js';
 import type { SortField, SortDirection, StatusCount } from '../types/ado.js';
 
@@ -222,6 +223,15 @@ export function TestCaseReviewTab() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* AI Summary - above charts */}
+      {selectedIterationPath && (totalTestCases > 0 || testCases.length > 0) && (
+        <AISummaryCard
+          tab="testcases"
+          data={{ testCases, iterationPath: selectedIterationPath }}
+          context={selectedIterationPath}
+        />
       )}
 
       {/* Pie Charts - 3 Columns */}
