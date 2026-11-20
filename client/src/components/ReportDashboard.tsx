@@ -2,6 +2,7 @@ import { useReportData } from '../hooks/useReport.js';
 import { StatusPieChart } from './StatusPieChart.js';
 import { InfoAlert } from './ErrorAlert.js';
 import { formatDateTime } from '../utils/formatters.js';
+import { AISummaryCard } from './AISummaryCard.js';
 import type { Feature, ChildUserStory } from '../types/ado.js';
 
 interface ReportDashboardProps {
@@ -51,6 +52,21 @@ export function ReportDashboard({ onBack, features: propFeatures, childStories: 
           ← Back to Tables
         </button>
       </div>
+
+      {/* AI Summary - above charts */}
+      {hasData && (
+        <AISummaryCard
+          tab="report"
+          data={{
+            features: propFeatures,
+            childStories: propChildStories,
+            featureStatusCounts,
+            totalFeatures,
+            totalChildStories,
+          }}
+          context="Report Dashboard"
+        />
+      )}
 
       {/* Feature Status Pie Chart */}
       <StatusPieChart

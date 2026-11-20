@@ -5,6 +5,7 @@ import { QAAssignmentsTable } from './QAAssignmentsTable.js';
 import { StatusPieChart } from './StatusPieChart.js';
 import { LoadingOverlay } from './LoadingSpinner.js';
 import type { SortField, SortDirection, StatusCount } from '../types/ado.js';
+import { AISummaryCard } from './AISummaryCard.js';
 
 export function QAAssignmentsTab() {
   const [selectedIterationPath, setSelectedIterationPath] = useState('');
@@ -287,6 +288,22 @@ export function QAAssignmentsTab() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* AI Summary - above charts */}
+      {selectedIterationPath && (totalQaUserStories > 0 || userStories.length > 0) && (
+        <AISummaryCard
+          tab="qaassignments"
+          data={{
+            userStories,
+            totalQaUserStories,
+            totalChildBugs,
+            totalStoryPoints,
+            boardColumnCounts,
+            assignedToCounts,
+          }}
+          context={selectedIterationPath}
+        />
       )}
 
       {/* Pie Charts - 3 Columns */}

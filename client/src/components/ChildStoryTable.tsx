@@ -6,6 +6,7 @@ import { InfoAlert } from './ErrorAlert.js';
 import { CommentModal } from './CommentModal.js';
 import { useFetchComments } from '../hooks/useComments.js';
 import { exportToExcel, formatDateForExport } from '../utils/exportToExcel.js';
+import { AISummaryCard } from './AISummaryCard.js';
 
 interface ChildStoryTableProps {
   childStories: ChildUserStory[];
@@ -474,6 +475,13 @@ export function ChildStoryTable({
           )}
         </div>
       </div>
+
+      {/* AI Summary - above table */}
+      <AISummaryCard
+        tab="childstories"
+        data={{ childStories: filteredAndSortedStories, count: childStories.length }}
+        context={`Child User Stories (${childStories.length} items)`}
+      />
 
       <div className="table-container scrollbar-thin">
         <table className="table" role="grid">

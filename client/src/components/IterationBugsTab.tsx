@@ -5,6 +5,7 @@ import { BugTable } from './BugTable.js';
 import { StatusPieChart } from './StatusPieChart.js';
 import { LoadingOverlay } from './LoadingSpinner.js';
 import type { SortField, SortDirection, StatusCount } from '../types/ado.js';
+import { AISummaryCard } from './AISummaryCard.js';
 
 export function IterationBugsTab() {
   const [selectedIterationPath, setSelectedIterationPath] = useState('');
@@ -208,6 +209,22 @@ export function IterationBugsTab() {
             </div>
           </div>
         </div>
+      )}
+
+      {/* AI Summary - above charts */}
+      {selectedIterationPath && (totalOpenBugs > 0 || bugs.length > 0) && (
+        <AISummaryCard
+          tab="bugs"
+          data={{
+            bugs,
+            totalOpenBugs,
+            bugStatusCounts,
+            bugSeverityCounts,
+            bugAssignedToCounts,
+            uniqueUserStoryCount,
+          }}
+          context={selectedIterationPath}
+        />
       )}
 
       {/* Pie Charts - 3 Columns */}

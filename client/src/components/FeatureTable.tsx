@@ -4,6 +4,7 @@ import { getStatusBadgeClass, isDateInPast, formatDate } from '../utils/formatte
 import { LoadingSpinner } from './LoadingSpinner.js';
 import { InfoAlert } from './ErrorAlert.js';
 import { exportToExcel } from '../utils/exportToExcel.js';
+import { AISummaryCard } from './AISummaryCard.js';
 
 interface FeatureTableProps {
   features: Feature[];
@@ -259,6 +260,13 @@ export function FeatureTable({
           </div>
         </div>
       </div>
+
+      {/* AI Summary - above table */}
+      <AISummaryCard
+        tab="features"
+        data={{ features: sortedFeatures, count: features.length }}
+        context={`Features overview (${features.length} items)`}
+      />
 
       <div className="table-container scrollbar-thin">
         <table className="table" role="grid">
