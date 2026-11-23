@@ -9,7 +9,7 @@ export function Header() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 17v-2m3 2v-4m3 4v-6m2 10H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <h1 className="text-xl font-bold text-neutral-900">ADO Feature & User Story Report</h1>
+            <h1 className="text-xl font-bold text-neutral-900">AQLYRION</h1>
           </div>
           <div className="text-sm text-neutral-500">
             Azure DevOps Work Item Reporting
