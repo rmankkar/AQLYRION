@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AQLYRION — Azure DevOps Reporting, Reimagined</title>
+  <meta name="description" content="Turn Azure DevOps data into beautiful, shareable, AI-powered reports. Features, user stories, test cases, QA assignments — with AI summaries and one-click share links." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar" id="navbar">
+    <div class="nav-container">
+      <div class="nav-logo">
+        <div class="logo-mark">A</div>
+        <span class="logo-text">AQLYRION</span>
+      </div>
+      <div class="nav-links" id="navLinks">
+        <a href="#features" class="nav-link">Features</a>
+        <a href="#how-it-works" class="nav-link">How it works</a>
+        <a href="#ai-summary" class="nav-link">AI Summary</a>
+        <a href="#share-links" class="nav-link">Share Links</a>
+        <a href="https://github.com/rmankkar/AQLYRION" class="nav-btn">Get Started</a>
+      </div>
+      <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero" id="hero">
+    <div class="hero-container">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-dot"></span>
+          Azure DevOps Reporting, Reimagined
+        </div>
+        <h1 class="hero-title">
+          Turn ADO data into <span class="text-gradient">beautiful reports</span>
+        </h1>
+        <p class="hero-subtitle">
+          Pull Features, User Stories, Test Cases, and QA Assignments directly from Azure DevOps.
+          Visualize with interactive charts, generate AI-powered summaries, and share read-only
+          snapshot links with stakeholders — no ADO login required.
+        </p>
+        <div class="hero-actions">
+          <a href="https://github.com/rmankkar/AQLYRION" class="btn btn-primary">Get Started — It's Free</a>
+          <a href="#features" class="btn btn-outline">See Features</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat">
+            <span class="stat-value">3</span>
+            <span class="stat-label">Core tabs</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">⚡</span>
+            <span class="stat-label">AI Summaries</span>
+          </div>
+          <div class="stat">
+            <span class="stat-value">🔗</span>
+            <span class="stat-label">Share Links</span>
+          </div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="mockup-card">
+          <div class="mockup-header">
+            <div class="mockup-dots">
+              <div class="dot dot-red"></div>
+              <div class="dot dot-yellow"></div>
+              <div class="dot dot-green"></div>
+            </div>
+            <div class="mockup-title">AQLYRION Dashboard</div>
+          </div>
+          <div class="mockup-body">
+            <div class="chart-placeholder">
+              <div class="chart-bar" style="height: 40%;"></div>
+              <div class="chart-bar" style="height: 65%;"></div>
+              <div class="chart-bar" style="height: 30%;"></div>
+              <div class="chart-bar" style="height: 80%;"></div>
+              <div class="chart-bar" style="height: 55%;"></div>
+            </div>
+            <div class="ai-preview">
+              <div class="ai-header">🤖 AI Summary</div>
+              <div class="ai-content">
+                Your QA assignments show strong progress with 12 open child bugs across 3 features. Consider prioritizing items past target date.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features" id="features">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tagline">Everything you need</span>
+        <h2 class="section-title">Built for ADO reporting</h2>
+        <p class="section-subtitle">
+          From feature lookup to shareable executive snapshots, AQLYRION covers the full reporting workflow.
+        </p>
+      </div>
+
+      <div class="features-grid">
+        <div class="feature-card">
+          <div class="feature-icon">🔍</div>
+          <h3 class="feature-title">Feature Search</h3>
+          <p class="feature-description">
+            Enter comma-separated Feature IDs to pull full details from Azure DevOps — sortable, selectable, and linkable.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">📖</div>
+          <h3 class="feature-title">Child User Stories</h3>
+          <p class="feature-description">
+            Fetch child stories with board column, deploy/target dates, tags, and parent feature links — with date highlighting for past-due items.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🧪</div>
+          <h3 class="feature-title">Test Case Review</h3>
+          <p class="feature-description">
+            Search test cases by iteration with filtering on status, assignee, automation, priority, and complexity.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">👥</div>
+          <h3 class="feature-title">QA Assignments</h3>
+          <p class="feature-description">
+            Find stories assigned to QA or in "In Progress(QA)" with expandable bug trees and visual status charts.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🤖</div>
+          <h3 class="feature-title">AI-Powered Summaries</h3>
+          <p class="feature-description">
+            Generate AI insights for any tab via NVIDIA NIM. Persisted to localStorage — survives refreshes and filter changes.
+          </p>
+        </div>
+        <div class="feature-card">
+          <div class="feature-icon">🔗</div>
+          <h3 class="feature-title">Shareable Links</h3>
+          <p class="feature-description">
+            Create read-only snapshot links with one click. Stakeholders view without ADO access. Auto-expires after 7 days.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- How It Works Section -->
+  <section class="how-it-works" id="how-it-works">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-tagline">Simple workflow</span>
+        <h2 class="section-title">From ADO to insight in minutes</h2>
+      </div>
+      <div class="flow-diagram">
+        <div class="flow-line"></div>
+        <div class="flow-steps">
+          <div class="flow-step">
+            <div class="step-marker">01</div>
+            <div class="step-content">
+              <h3 class="step-title">Enter Feature IDs</h3>
+              <p class="step-description">Type comma-separated Feature work item IDs.</p>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="step-marker">02</div>
+            <div class="step-content">
+              <h3 class="step-title">Fetch &amp; Select</h3>
+              <p class="step-description">Retrieve details, select Features, fetch child stories.</p>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="step-marker">03</div>
+            <div class="step-content">
+              <h3 class="step-title">Generate Insights</h3>
+              <p class="step-description">View charts, run AI summaries, explore bug trees.</p>
+            </div>
+          </div>
+          <div class="flow-step">
+            <div class="step-marker">04</div>
+            <div class="step-content">
+              <h3 class="step-title">Share Snapshot</h3>
+              <p class="step-description">Click Share, copy link — no ADO login needed.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- AI Summary Spotlight -->
+  <section class="ai-spotlight" id="ai-summary">
+    <div class="ai-container">
+      <div class="ai-content">
+        <span class="ai-tag">✨ AI-Powered</span>
+        <h2 class="ai-title">Summaries that stick</h2>
+        <p class="ai-description">
+          Click "Generate AI Summary" above any chart or table. Powered by NVIDIA NIM, each summary is rendered with
+          markdown formatting and saved to localStorage — so it survives page refreshes and filter changes.
+          Regenerate anytime to refresh with current data.
+        </p>
+        <ul class="ai-benefits">
+          <li><span class="check">✓</span> On-demand generation per tab</li>
+          <li><span class="check">✓</span> localStorage persistence</li>
+          <li><span class="check">✓</span> Markdown-formatted output</li>
+          <li><span class="check">✓</span> Collapsible, dismissible UI</li>
+        </ul>
+      </div>
+      <div class="ai-visual">
+        <div class="ai-card-preview">
+          <div class="preview-header">AI Summary — Bugs</h3>
+          <div class="preview-body">
+            <p>Open child bugs are concentrated in 2 features. 3 items are past target date and unassigned. Recommend triage before next sprint.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Share Links Spotlight -->
+  <section class="share-spotlight" id="share-links">
+    <div class="share-container">
+      <div class="share-visual">
+        <div class="link-card-preview">
+          <div class="preview-url">http://localhost:5173/shared/abc-123</div>
+          <div class="preview-badge">Read-only • Expires in 7 days</div>
+          <div class="preview-content">
+            <p>Shared snapshot of QA Assignments — Bug Report</p>
+            <div class="preview-chart">
+              <div class="mini-bar" style="height: 35%"></div>
+              <div class="mini-bar" style="height: 60%"></div>
+              <div class="mini-bar" style="height: 20%"></div>
+              <div class="mini-bar" style="height: 75%"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="share-content">
+        <span class="share-tag">🔗 Shareable</span>
+        <h2 class="share-title">Executive access, without ADO logins</h2>
+        <p class="share-description">
+          Generate a share URL from any tab with one click. The link opens a frozen, read-only snapshot — no live ADO
+          data is fetched, and your PAT is never exposed. Perfect for execs, clients, and external stakeholders.
+        </p>
+        <ul class="share-benefits">
+          <li><span class="check">✓</span> One-click clipboard copy</li>
+          <li><span class="check">✓</span> No authentication required</li>
+          <li><span class="check">✓</span> Read-only — no data mutations</li>
+          <li><span class="check">✓</span> 7-day retention TTL</li>
+          <li><span class="check">✓</span> AI Summary included at top</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta">
+    <div class="cta-container">
+      <h2 class="cta-title">Ready to simplify ADO reporting?</h2>
+      <p class="cta-subtitle">Clone the repo, configure your PAT, and start generating reports in minutes.</p>
+      <a href="https://github.com/rmankkar/AQLYRION" class="btn btn-primary btn-large">View on GitHub</a>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="logo-mark">A</div>
+        <span class="logo-text">AQLYRION</span>
+      </div>
+      <p class="footer-copy">
+        Crafted with ☕ and ❤️ by <strong>Rishi Mankkar</strong>. <br>
+        Open source. MIT Licensed.
+      </p>
+      <div class="footer-links">
+        <a href="#">GitHub</a>
+        <a href="#">Documentation</a>
+        <a href="#">Report Issue</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
