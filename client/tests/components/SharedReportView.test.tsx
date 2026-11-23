@@ -7,6 +7,13 @@ vi.mock('../../src/hooks/useShare.js', () => ({
   useShare: vi.fn(),
 }));
 
+vi.mock('../../src/hooks/useAISummary.js', () => ({
+  useFetchAISummary: vi.fn(() => ({ mutateAsync: vi.fn(), isPending: false })),
+  useAISummary: vi.fn(() => null),
+  useAISummaryError: vi.fn(() => null),
+  useClearAISummary: vi.fn(() => vi.fn()),
+}));
+
 const mockUseShare = vi.mocked(useShare);
 
 beforeEach(() => {
